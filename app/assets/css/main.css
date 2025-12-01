@@ -1,1 +1,127 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'KondolarThai';
+  src: url('/assets/fonts/KondolarThai-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'KondolarThai';
+  src: url('/assets/fonts/KondolarThai-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexSansThaiLooped';
+  src: url('/assets/fonts/IBMPlexSansThaiLooped-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexSansThaiLooped';
+  src: url('/assets/fonts/IBMPlexSansThaiLooped-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBMPlexSansThaiLooped';
+  src: url('/assets/fonts/IBMPlexSansThaiLooped-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-yellow: #ffe345;
+  --color-cream: #f5f4ee;
+  --color-blue-01: #1a41ac;
+  --color-blue-02: #81aeff;
+  --color-blue-03: #c8ebff;
+  --color-blue-05: #4297fe;
+  --color-blue-06: #8dbffc;
+  --color-sky: #229cff;
+  --color-green-01: #1f965c;
+  --color-green-02: #4fba96;
+  --color-red-01: #ff231f;
+  --color-red-02: #fe6b80;
+  --color-red-03: #ffbac3;
+  --color-yellow-01: #ffc053;
+  --color-yellow-02: #ffe3b3;
+}
+
+body {
+  font-family: 'KondolarThai', sans-serif;
+  @apply leading-[1.4];
+}
+
+h1 {
+  @apply text-[60px] leading-tight md:text-[100px];
+}
+h2 {
+  @apply text-[48px] leading-tight md:text-[72px];
+}
+h3 {
+  @apply text-[36px] leading-tight md:text-[60px];
+}
+h4 {
+  @apply text-[32px] md:text-[48px];
+}
+h5 {
+  @apply text-[28px] md:text-[36px];
+}
+h6 {
+  @apply text-[24px] md:text-[32px];
+}
+.h7 {
+  @apply text-[21px] md:text-[28px];
+}
+.h8 {
+  @apply text-[18px] md:text-[24px];
+}
+.h9 {
+  @apply text-[16px] md:text-[21px];
+}
+.h10 {
+  @apply text-[15px] md:text-[18px];
+}
+.h11 {
+  @apply text-[14px] md:text-[16px];
+}
+
+.b1 {
+  @apply text-[24px] md:text-[32px];
+}
+.b2 {
+  @apply text-[21px] md:text-[24px];
+}
+.b3 {
+  @apply text-[18px] md:text-[21px];
+}
+.b4 {
+  @apply text-[16px] md:text-[18px];
+}
+.b5 {
+  @apply text-[14px] md:text-[16px];
+}
+.b6 {
+  @apply text-[12px] md:text-[14px];
+}
+.b7 {
+  @apply text-[10px] md:text-[12px];
+}
+
+.b1,
+.b2,
+.b3,
+.b4,
+.b5,
+.b6,
+.b7 {
+  font-family: 'IBMPlexSansThaiLooped', sans-serif;
+  @apply leading-normal;
+}
