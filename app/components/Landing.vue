@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import Button from './Button.vue'
+
+const emit = defineEmits<{
+  (e: 'start'): void
+}>()
 </script>
 
 <template>
@@ -33,6 +37,6 @@ import Button from './Button.vue'
       ก่อนออกจากบ้านไปเข้าคูหากันหน่อย!
     </p>
 
-    <Button text="เริ่มเล่น Quiz" />
+    <Button text="เริ่มเล่น Quiz" @click="emit('start')" />
   </div>
 </template>

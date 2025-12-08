@@ -4,16 +4,21 @@ import { computed } from 'vue'
 type Choice = 'A' | 'B' | 'C' | 'D'
 
 const props = defineProps<{
-  text: string
   id: Choice
-  label: string
-  selectedAnswer: Choice | null
+  index: number
+  text: string
   correctAnswer: Choice
+  selectedAnswer: Choice | null
 }>()
 
 const emit = defineEmits<{
   (e: 'select', value: Choice): void
 }>()
+
+const label = computed(() => {
+  const labels = ['ก', 'ข', 'ค', 'ง']
+  return labels[props.index] || '?'
+})
 
 const boxClasses = computed(() => {
   if (!props.selectedAnswer) {
