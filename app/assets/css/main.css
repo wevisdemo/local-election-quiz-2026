@@ -35,10 +35,18 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Sriracha';
+  src: url('/assets/fonts/Sriracha-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --color-yellow: #ffe345;
   --color-cream: #f5f4ee;
+  --color-grey: #a5a5a5;
   --color-blue-01: #1a41ac;
   --color-blue-02: #81aeff;
   --color-blue-03: #c8ebff;
@@ -57,6 +65,10 @@
 body {
   font-family: 'KondolarThai', sans-serif;
   @apply leading-[1.4];
+}
+
+.font-sriracha {
+  font-family: 'Sriracha', sans-serif;
 }
 
 h1 {
