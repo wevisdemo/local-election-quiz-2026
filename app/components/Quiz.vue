@@ -201,7 +201,7 @@ const prevStep = () => {
 
       <button
         @click="handleNext"
-        class="mt-6 w-full max-w-[280px] rounded-lg bg-blue-500 px-8 py-3 font-bold text-white transition-colors hover:bg-blue-600"
+        class="hover:bg-blue-05 bg-blue-06 mt-6 w-full max-w-[280px] cursor-pointer rounded-lg px-8 py-3 font-bold text-white transition-colors"
       >
         {{ currentStep === questions.length - 1 ? 'ส่งคำตอบ' : 'ไปต่อ' }}
       </button>
