@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-
-type Choice = 'A' | 'B' | 'C' | 'D'
+import type { Choice } from './Quiz.vue'
 
 const props = defineProps<{
   id: Choice

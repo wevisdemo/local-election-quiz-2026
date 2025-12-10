@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import ChoiceBox from './ChoiceBox.vue'
 import QuizStepNavigation from './QuizStepNavigation.vue'
 
-type Choice = 'A' | 'B' | 'C' | 'D'
+export type Choice = 'A' | 'B' | 'C' | 'D'
+type StepStatus = 'correct' | 'wrong' | 'current' | 'pending'
+
 interface Question {
   id: number
   text: string
@@ -11,8 +12,13 @@ interface Question {
   answer: Choice
 }
 
+export interface QuizResultHistory {
+  question: Question
+  userAnswer: Choice | null
+}
+
 const emit = defineEmits<{
-  (e: 'finish'): void
+  (e: 'finish', score: number, history: QuizResultHistory[]): void
 }>()
 
 const rawQuestions: Question[] = [
@@ -85,6 +91,36 @@ const isCurrentQuestionAnswered = computed(() => {
   return !!selectedAnswer.value[question.id]
 })
 
+const stepsStatus = computed<StepStatus[]>(() => {
+  return questions.value.map((q, index) => {
+    const userAnswer = selectedAnswer.value[q.id]
+    if (userAnswer) {
+      return userAnswer === q.answer ? 'correct' : 'wrong'
+    }
+    if (index === currentStep.value) {
+      return 'current'
+    }
+    return 'pending'
+  })
+})
+
+const calculateScore = () => {
+  let score = 0
+  questions.value.forEach((q) => {
+    if (selectedAnswer.value[q.id] === q.answer) {
+      score++
+    }
+  })
+  return score
+}
+
+const getQuizHistory = (): QuizResultHistory[] => {
+  return questions.value.map((q) => ({
+    question: q,
+    userAnswer: selectedAnswer.value[q.id] || null,
+  }))
+}
+
 const handleSelectAnswer = (choiceId: Choice) => {
   const question = currentQuestion.value
   if (question) {
@@ -97,7 +133,7 @@ const handleNext = () => {
     currentStep.value++
     window.scrollTo({ top: 0, behavior: 'smooth' })
   } else {
-    emit('finish')
+    emit('finish', calculateScore(), getQuizHistory())
   }
 }
 
@@ -111,6 +147,7 @@ const prevStep = () => {
     <QuizStepNavigation
       :currentStep="currentStep"
       :totalSteps="questions.length"
+      :stepsStatus="stepsStatus"
       @next="handleNext"
       @prev="prevStep"
       @jumpTo="(index) => (currentStep = index)"
@@ -149,7 +186,7 @@ const prevStep = () => {
       class="animate-fade-in mt-6 mb-10 flex w-full flex-col items-center px-4"
     >
       <div class="w-full max-w-[764px] rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-        <p class="h9 mb-2 font-bold text-green-600">คำอธิบาย</p>
+        <p class="h9 mb-2 font-bold">คำอธิบาย</p>
         <p class="b5 font-medium text-gray-700">
           นายก อบต. เป็นฝ่ายบริหาร ส่วน สภา อบต. เป็นฝ่ายนิติบัญญัติ...
         </p>

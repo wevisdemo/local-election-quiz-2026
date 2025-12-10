@@ -1,19 +1,66 @@
 <script setup lang="ts">
-defineProps<{
+type StepStatus = 'correct' | 'wrong' | 'current' | 'pending'
+
+const props = defineProps<{
   currentStep: number
   totalSteps: number
+  stepsStatus: StepStatus[]
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'prev'): void
   (e: 'next'): void
   (e: 'jumpTo', index: number): void
 }>()
+
+const maxAccessibleStep = computed(() => {
+  const firstUnfinishedIndex = props.stepsStatus.findIndex(
+    (status) => status !== 'correct' && status !== 'wrong',
+  )
+
+  return firstUnfinishedIndex === -1 ? props.totalSteps - 1 : firstUnfinishedIndex
+})
+
+const isClickable = (index: number) => {
+  return index <= maxAccessibleStep.value
+}
+
+const handleJump = (index: number) => {
+  if (isClickable(index)) {
+    emit('jumpTo', index)
+  }
+}
+
+const getClass = (index: number) => {
+  const status = props.stepsStatus[index]
+
+  const clickable = isClickable(index)
+  const baseCursor = clickable ? 'cursor-pointer' : 'cursor-not-allowed'
+
+  if (!clickable) {
+    return `${baseCursor} bg-[#E0E0E0] text-gray-400`
+  }
+
+  switch (status) {
+    case 'correct':
+      return `${baseCursor} bg-blue-600 hover:bg-blue-700`
+    case 'wrong':
+      return `${baseCursor} bg-red-500 hover:bg-red-600`
+    case 'current':
+      return `${baseCursor} bg-black hover:bg-gray-800`
+    default:
+      return `${baseCursor} bg-[#B3B3B3] hover:bg-gray-400`
+  }
+}
 </script>
 
 <template>
   <div class="flex items-center py-2">
-    <button @click="$emit('prev')" :disabled="currentStep === 0">
+    <button
+      @click="$emit('prev')"
+      :disabled="currentStep === 0"
+      class="cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
+    >
       <svg
         width="30"
         height="30"
@@ -34,14 +81,19 @@ defineEmits<{
       <div
         v-for="n in totalSteps"
         :key="n"
-        @click="$emit('jumpTo', n - 1)"
-        :class="`relative z-10 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full text-white transition-colors hover:bg-gray-700 ${currentStep === n - 1 ? 'bg-black' : 'bg-[#B3B3B3]'} `"
+        @click="handleJump(n - 1)"
+        class="relative z-10 flex h-4 w-4 items-center justify-center rounded-full text-white transition-colors"
+        :class="getClass(n - 1)"
       >
         <p class="text-[9px] font-bold">{{ n }}</p>
       </div>
     </div>
 
-    <button @click="$emit('next')" :disabled="currentStep === totalSteps - 1">
+    <button
+      @click="$emit('next')"
+      :disabled="currentStep === totalSteps - 1 || currentStep >= maxAccessibleStep"
+      class="cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
+    >
       <svg
         width="30"
         height="30"
