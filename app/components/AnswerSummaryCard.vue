@@ -38,7 +38,7 @@ const wrongChoiceObj = computed(() => {
   <div class="">
     <div class="flex flex-col items-center justify-center gap-2">
       <p class="h9 font-bold">{{ index + 1 }}. {{ question.text }}</p>
-      <div class="pointer-events-none flex w-full justify-center">
+      <div class="pointer-events-none flex w-full justify-center text-left">
         <ChoiceBox
           v-if="correctChoiceObj"
           :id="correctChoiceObj.id"
@@ -48,7 +48,7 @@ const wrongChoiceObj = computed(() => {
           :selectedAnswer="userAnswer"
         />
       </div>
-      <div v-if="wrongChoiceObj" class="pointer-events-none flex w-full justify-center">
+      <div v-if="wrongChoiceObj" class="pointer-events-none flex w-full justify-center text-left">
         <ChoiceBox
           :id="wrongChoiceObj.id"
           :index="wrongChoiceObj.originalIndex"
@@ -72,8 +72,12 @@ const wrongChoiceObj = computed(() => {
         </button>
 
         <div
-          class="overflow-hidden transition-all duration-300"
-          :class="isExplanationOpen ? 'max-h-[1000vh] opacity-100' : 'max-h-0 opacity-0'"
+          class="transition-all duration-300"
+          :class="
+            isExplanationOpen
+              ? 'max-h-[1000vh] overflow-visible opacity-100'
+              : 'max-h-0 overflow-hidden opacity-0'
+          "
         >
           <div class="rounded-b-lg bg-white p-4 text-sm text-gray-700">
             {{ explanation }}
