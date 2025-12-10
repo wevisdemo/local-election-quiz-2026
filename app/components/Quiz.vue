@@ -114,6 +114,13 @@ const calculateScore = () => {
   return score
 }
 
+const currentGifSource = computed(() => {
+  const score = calculateScore()
+
+  const formattedScore = score.toString().padStart(2, '0')
+  return `/gif/check_${formattedScore}.gif`
+})
+
 const getQuizHistory = (): QuizResultHistory[] => {
   return questions.value.map((q) => ({
     question: q,
@@ -153,8 +160,8 @@ const prevStep = () => {
       @jumpTo="(index) => (currentStep = index)"
     />
 
-    <div class="py-4 md:h-[220px]">
-      <img class="h-full w-full" src="/assets/images/mock-character.png" alt="" />
+    <div class="py-4">
+      <img class="h-[150px] object-contain md:h-[220px]" :src="currentGifSource" alt="Character" />
     </div>
 
     <div v-if="currentQuestion" class="w-full">
