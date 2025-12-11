@@ -47,6 +47,7 @@
   --color-yellow: #ffe345;
   --color-cream: #f5f4ee;
   --color-grey: #a5a5a5;
+  --color-grey-01: #373746;
   --color-blue-01: #1a41ac;
   --color-blue-02: #81aeff;
   --color-blue-03: #c8ebff;
@@ -144,7 +145,7 @@ h6 {
 @layer components {
   .markdown-text a {
     text-decoration: underline;
-    color: #373746;
+    color: var(--color-grey-01);
     cursor: pointer;
   }
 

@@ -10,7 +10,7 @@ const emit = defineEmits<{
   <div class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
     <div class="leading-7 font-bold">
       <h6>เช็กความพร้อม</h6>
-      <h3 class="relative z-20 -translate-y-[2px]">ซ้อมความเป๊ะ</h3>
+      <h3 class="relative z-20 -translate-y-0.5">ซ้อมความเป๊ะ</h3>
       <div class="flex items-center gap-2.5">
         <h6 class="relative z-20 md:mr-1">ก่อนออกไปเลือกตั้ง</h6>
         <div class="relative">

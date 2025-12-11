@@ -1,9 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div
-    class="bg-yellow mt-12 mb-10 flex w-full max-w-[750px] flex-col items-center rounded-lg px-4 py-8"
-  >
+  <div class="bg-yellow flex w-full max-w-[750px] flex-col items-center rounded-lg px-4 py-8">
     <p class="font-sriracha text-blue-01 text-[20px]">ไม่ว่าวันนี้คุณจะพร้อมระดับไหน</p>
     <p class="pt-3 pb-6 text-[32px] font-bold">
       แต่ในวันเลือกตั้ง <br />
