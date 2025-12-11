@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import ChoiceBox from './ChoiceBox.vue'
 import type { Choice } from './Quiz.vue'
+import { marked } from 'marked'
 
 interface Question {
   id: number
-  text: string
+  question: string
   choices: { id: Choice; text: string }[]
   answer: Choice
 }
@@ -32,12 +33,21 @@ const wrongChoiceObj = computed(() => {
   if (!choice) return null
   return { ...choice, originalIndex: idx }
 })
+
+const renderMarkdown = (text: string | undefined) => {
+  if (!text) return ''
+
+  let html = marked.parse(text, { async: false, breaks: true }) as string
+  html = html.replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ')
+
+  return html
+}
 </script>
 
 <template>
   <div class="">
     <div class="flex flex-col items-center justify-center gap-2">
-      <p class="h9 font-bold">{{ index + 1 }}. {{ question.text }}</p>
+      <p class="h9 font-bold">{{ index + 1 }}. {{ question.question }}</p>
       <div class="pointer-events-none flex w-full justify-center text-left">
         <ChoiceBox
           v-if="correctChoiceObj"
@@ -79,8 +89,8 @@ const wrongChoiceObj = computed(() => {
               : 'max-h-0 overflow-hidden opacity-0'
           "
         >
-          <div class="rounded-b-lg bg-white p-4 text-sm text-gray-700">
-            {{ explanation }}
+          <div class="rounded-b-lg bg-white p-4 text-left">
+            <p class="b5 markdown-text font-medium" v-html="renderMarkdown(explanation)"></p>
           </div>
         </div>
       </div>

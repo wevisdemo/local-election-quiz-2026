@@ -49,7 +49,7 @@ const handleClick = () => {
 <template>
   <div
     @click="handleClick"
-    class="group flex w-full max-w-[500px] gap-0.5 transition-all duration-200"
+    class="group flex w-full max-w-[472px] gap-0.5 transition-all duration-200"
   >
     <div
       class="flex min-h-11 flex-1 items-center gap-1 border px-3 py-2 transition-colors duration-200"

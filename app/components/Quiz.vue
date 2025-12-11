@@ -1,15 +1,36 @@
 <script setup lang="ts">
 import ChoiceBox from './ChoiceBox.vue'
 import QuizStepNavigation from './QuizStepNavigation.vue'
+import {
+  Column,
+  Object as SheetObject,
+  Spreadsheet,
+  asString,
+  type StaticDecode,
+} from 'sheethuahua'
+import { marked } from 'marked'
+
+const schema = SheetObject({
+  id: Column('id', asString()),
+  question: Column('question', asString()),
+  option_a: Column('option_a', asString()),
+  option_b: Column('option_b', asString()),
+  option_c: Column('option_c', asString()),
+  option_d: Column('option_d', asString()),
+  answer: Column('correct_option', asString()),
+  explanation: Column('explanation', asString()),
+})
 
 export type Choice = 'A' | 'B' | 'C' | 'D'
 type StepStatus = 'correct' | 'wrong' | 'current' | 'pending'
 
 interface Question {
-  id: number
-  text: string
+  no: number
+  id: string
+  question: string
   choices: { id: Choice; text: string }[]
   answer: Choice
+  explanation: string
 }
 
 export interface QuizResultHistory {
@@ -21,45 +42,6 @@ const emit = defineEmits<{
   (e: 'finish', score: number, history: QuizResultHistory[]): void
 }>()
 
-const rawQuestions: Question[] = [
-  {
-    id: 1,
-    text: 'วันที่ 11 ม.ค. นี้ เราต้องลงคะแนนเลือกใคร?',
-    choices: [
-      { id: 'A', text: 'นายก อบต. และเทศบาลตำบล' },
-      { id: 'B', text: 'นายก อบต. และสมาชิกสภา อบต.' },
-      { id: 'C', text: 'นายก อบต. และสภาจังหวัด' },
-      { id: 'D', text: 'ผู้ว่าราชการจังหวัด และนายก อบต.' },
-    ],
-    answer: 'B',
-  },
-  {
-    id: 2,
-    text: 'ไหนเช็คความเข้าใจหน่อย ว่าข้อใดอยู่นอกอำนาจหน้าที่ของ อบต.?',
-    choices: [
-      { id: 'A', text: 'กำจัดขยะมูลฝอย' },
-      { id: 'B', text: 'ป้องกันและระงับโรคติดต่อ' },
-      { id: 'C', text: 'ส่งเสริมการศึกษา ศาสนา และวัฒนธรรม' },
-      { id: 'D', text: 'การรักษาความสงบเรียบร้อย' },
-    ],
-    answer: 'D',
-  },
-  {
-    id: 3,
-    text: 'เอ๊ะ แล้ว อบต. กับ เทศบาลตำบล ต่างกันยังไง?',
-    choices: [
-      { id: 'A', text: 'ประชากรในการดูแลของ อบต. มีมากกว่าเทศบาลตำบล' },
-      { id: 'B', text: 'อบต. ดูแลระดับเมือง เทศบาลตำบล ดูแลระดับหมู่บ้าน/ชุมชน ' },
-      { id: 'C', text: 'อบต. ออกบัตรประชาชนให้เราได้ แต่เทศบาลตำบลทำไม่ได้' },
-      {
-        id: 'D',
-        text: 'หากมีรายได้ท้องถิ่นมากกว่า 20 ล้านบาท อบต. สามารถยกระดับเป็นเทศบาลตำบลได้',
-      },
-    ],
-    answer: 'D',
-  },
-]
-
 const shuffleArray = <T,>(array: T[]): T[] => {
   const newArr = [...array]
   for (let i = newArr.length - 1; i > 0; i--) {
@@ -70,12 +52,36 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 }
 
 const questions = ref<Question[]>([])
+const transformSheetData = (rawData: StaticDecode<typeof schema>[]) => {
+  return rawData.map((row, index) => {
+    return {
+      no: index + 1,
+      id: row.id,
+      question: row.question,
+      choices: [
+        { id: 'A', text: row.option_a },
+        { id: 'B', text: row.option_b },
+        { id: 'C', text: row.option_c },
+        { id: 'D', text: row.option_d },
+      ],
+      answer: row.answer,
+      explanation: row.explanation,
+    }
+  })
+}
 
-onMounted(() => {
-  questions.value = rawQuestions.map((q) => {
+onMounted(async () => {
+  const output = await Spreadsheet('17UxdHGS0ML1pq52q3zmaR5vFfDIRD_eVCVJUqd6VX-E').get(
+    'quiz_data',
+    schema,
+  )
+  const data = transformSheetData(output)
+
+  questions.value = data.map((q) => {
     return {
       ...q,
-      choices: shuffleArray(q.choices),
+      answer: q.answer as Choice,
+      choices: shuffleArray(q.choices) as { id: Choice; text: string }[],
     }
   })
 })
@@ -88,12 +94,12 @@ const currentQuestion = computed(() => questions.value[currentStep.value])
 const isCurrentQuestionAnswered = computed(() => {
   const question = currentQuestion.value
   if (!question) return false
-  return !!selectedAnswer.value[question.id]
+  return !!selectedAnswer.value[question.no]
 })
 
 const stepsStatus = computed<StepStatus[]>(() => {
   return questions.value.map((q, index) => {
-    const userAnswer = selectedAnswer.value[q.id]
+    const userAnswer = selectedAnswer.value[q.no]
     if (userAnswer) {
       return userAnswer === q.answer ? 'correct' : 'wrong'
     }
@@ -107,7 +113,7 @@ const stepsStatus = computed<StepStatus[]>(() => {
 const calculateScore = () => {
   let score = 0
   questions.value.forEach((q) => {
-    if (selectedAnswer.value[q.id] === q.answer) {
+    if (selectedAnswer.value[q.no] === q.answer) {
       score++
     }
   })
@@ -118,20 +124,21 @@ const currentGifSource = computed(() => {
   const score = calculateScore()
 
   const formattedScore = score.toString().padStart(2, '0')
-  return `/gif/check_${formattedScore}.gif`
+  return `/gifs/check_${formattedScore}.gif`
 })
 
 const getQuizHistory = (): QuizResultHistory[] => {
   return questions.value.map((q) => ({
     question: q,
-    userAnswer: selectedAnswer.value[q.id] || null,
+    userAnswer: selectedAnswer.value[q.no] || null,
+    explanation: q.explanation,
   }))
 }
 
 const handleSelectAnswer = (choiceId: Choice) => {
   const question = currentQuestion.value
   if (question) {
-    selectedAnswer.value[question.id] = choiceId
+    selectedAnswer.value[question.no] = choiceId
   }
 }
 
@@ -146,6 +153,15 @@ const handleNext = () => {
 
 const prevStep = () => {
   if (currentStep.value > 0) currentStep.value--
+}
+
+const renderMarkdown = (text: string | undefined) => {
+  if (!text) return ''
+
+  let html = marked.parse(text, { async: false, breaks: true }) as string
+  html = html.replace(/<a /g, '<a target="_blank" rel="noopener noreferrer" ')
+
+  return html
 }
 </script>
 
@@ -169,9 +185,9 @@ const prevStep = () => {
         <div
           class="font-sriracha bg-yellow-01 flex h-9 w-9 flex-none items-center justify-center rounded-full text-[18px] font-bold md:text-[22px]"
         >
-          {{ currentQuestion.id }}
+          {{ currentQuestion.no }}
         </div>
-        <p class="h7 font-bold">{{ currentQuestion.text }}</p>
+        <p class="h7 font-bold">{{ currentQuestion.question }}</p>
       </div>
 
       <div class="flex w-full flex-col items-center gap-0.5 px-6">
@@ -182,7 +198,7 @@ const prevStep = () => {
           :index="index"
           :text="choice.text"
           :correctAnswer="currentQuestion.answer"
-          :selectedAnswer="selectedAnswer[currentQuestion.id] || null"
+          :selectedAnswer="selectedAnswer[currentQuestion.no] || null"
           @select="handleSelectAnswer"
         />
       </div>
@@ -192,11 +208,14 @@ const prevStep = () => {
       v-if="isCurrentQuestionAnswered"
       class="animate-fade-in mt-6 mb-10 flex w-full flex-col items-center px-4"
     >
-      <div class="w-full max-w-[764px] rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+      <div
+        class="w-full max-w-[540px] rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-5"
+      >
         <p class="h9 mb-2 font-bold">คำอธิบาย</p>
-        <p class="b5 font-medium text-gray-700">
-          นายก อบต. เป็นฝ่ายบริหาร ส่วน สภา อบต. เป็นฝ่ายนิติบัญญัติ...
-        </p>
+        <p
+          class="b5 markdown-text font-medium"
+          v-html="renderMarkdown(currentQuestion?.explanation)"
+        />
       </div>
 
       <button

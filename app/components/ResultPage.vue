@@ -13,6 +13,7 @@ interface Question {
 interface QuizResultHistory {
   question: Question
   userAnswer: Choice | null
+  explanation: string
 }
 
 const props = defineProps<{
@@ -111,7 +112,7 @@ const currentResult = computed(() => {
 const gifSource = computed(() => {
   const formattedScore = props.score.toString().padStart(2, '0')
 
-  return `/gif/check_${formattedScore}.gif`
+  return `/gifs/check_${formattedScore}.gif`
 })
 </script>
 
@@ -180,7 +181,7 @@ const gifSource = computed(() => {
             :index="index"
             :question="item.question"
             :userAnswer="item.userAnswer"
-            explanation=""
+            :explanation="item.explanation"
           />
         </div>
       </div>
