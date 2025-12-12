@@ -1,8 +1,14 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
-const baseUrl = config.public.baseUrl.replace(/\/$/, '')
 const title = ''
 const description = ''
+
+const isLoading = ref(true)
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false
+  }, 300)
+})
 
 useHead({
   htmlAttrs: { lang: 'th' },
@@ -24,9 +30,27 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="bg-cream">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+  <div>
+    <Transition name="fade">
+      <div
+        v-if="isLoading"
+        class="bg-cream fixed inset-0 z-50 flex flex-col items-center justify-center"
+      />
+    </Transition>
+
+    <div class="bg-cream">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
   </div>
 </template>
+
+<style>
+.fade-leave-active {
+  transition: opacity 1s ease;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
