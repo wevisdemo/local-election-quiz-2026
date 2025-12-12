@@ -81,7 +81,10 @@ onMounted(async () => {
     return {
       ...q,
       answer: q.answer as Choice,
-      choices: shuffleArray(q.choices) as { id: Choice; text: string }[],
+      choices: ([4, 6, 7, 8, 10].includes(q.no) ? q.choices : shuffleArray(q.choices)) as {
+        id: Choice
+        text: string
+      }[],
     }
   })
 })
