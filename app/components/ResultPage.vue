@@ -31,6 +31,7 @@ const emit = defineEmits<{
 const articleList = ref<Post[]>([])
 
 onMounted(async () => {
+  window.scrollTo(0, 0)
   articleList.value = await fetchWeVisElectionPosts({ limit: 5 })
 })
 
