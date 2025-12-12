@@ -24,7 +24,7 @@ const schema = SheetObject({
 export type Choice = 'A' | 'B' | 'C' | 'D'
 type StepStatus = 'correct' | 'wrong' | 'current' | 'pending'
 
-interface Question {
+export interface Question {
   no: number
   id: string
   question: string
@@ -36,6 +36,7 @@ interface Question {
 export interface QuizResultHistory {
   question: Question
   userAnswer: Choice | null
+  explanation: string
 }
 
 const emit = defineEmits<{

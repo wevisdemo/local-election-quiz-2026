@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import ChoiceBox from './ChoiceBox.vue'
-import type { Choice } from './Quiz.vue'
+import type { Choice, Question } from './Quiz.vue'
 import { marked } from 'marked'
-
-interface Question {
-  id: number
-  question: string
-  choices: { id: Choice; text: string }[]
-  answer: Choice
-}
 
 const props = defineProps<{
   index: number
