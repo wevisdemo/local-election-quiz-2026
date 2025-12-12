@@ -88,6 +88,8 @@ onMounted(async () => {
       }[],
     }
   })
+
+  window.scrollTo(0, 0)
 })
 
 const currentStep = ref(0)
@@ -149,7 +151,7 @@ const handleSelectAnswer = (choiceId: Choice) => {
 const handleNext = () => {
   if (currentStep.value < questions.value.length - 1) {
     currentStep.value++
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo(0, 0)
   } else {
     emit('finish', calculateScore(), getQuizHistory())
   }
