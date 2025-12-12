@@ -1,4 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const fileUrls = [
+  '/images/local-election-05.jpg',
+  '/images/local-election-06.jpg',
+  '/images/local-election-07.jpg',
+]
+
+const downloadImages = () => {
+  fileUrls.forEach((url, index) => {
+    setTimeout(() => {
+      const link = document.createElement('a')
+      link.href = url
+      link.download = url.split('/').pop() || `download-${index}`
+
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    }, index * 800)
+  })
+}
+</script>
 
 <template>
   <div class="bg-yellow flex w-full max-w-[750px] flex-col items-center rounded-lg px-4 py-8">
@@ -14,6 +34,7 @@
       ชวนออกไปใช้สิทธิ <br class="md:hidden" />เพื่อคุณภาพชีวิตที่ดีกว่าเดิม
     </p>
     <button
+      @click="downloadImages"
       class="bg-blue-06 hover:bg-blue-05 border-blue-06 hover:border-blue-05 my-6 flex w-full max-w-[280px] cursor-pointer items-center justify-between gap-2.5 rounded-lg border-2 px-4 py-[11px] font-bold"
     >
       <img src="/assets/images/download.svg" alt="" />
