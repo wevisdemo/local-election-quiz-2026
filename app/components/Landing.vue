@@ -8,6 +8,10 @@ const emit = defineEmits<{
 
 <template>
   <div class="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <div class="mb-3 flex gap-2.5 md:mb-5">
+      <p class="text-red-01 animate-1 h10 origin-center font-bold">Fit Check!</p>
+      <p class="text-red-01 animate-2 h10 origin-center font-bold">Fit Check!</p>
+    </div>
     <div class="leading-7 font-bold">
       <h6>เช็กความพร้อม</h6>
       <h3 class="relative z-20 -translate-y-0.5">ซ้อมความเป๊ะ</h3>
@@ -40,3 +44,32 @@ const emit = defineEmits<{
     <Button text="เริ่มเล่น Quiz" @click="emit('start')" />
   </div>
 </template>
+
+<style scoped>
+@keyframes tilt-left {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+@keyframes tilt-right {
+  0%,
+  100% {
+    transform: rotate(6deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+}
+
+.animate-1 {
+  animation: tilt-left 0.5s ease-in infinite;
+}
+.animate-2 {
+  animation: tilt-right 0.5s ease-in infinite;
+}
+</style>
