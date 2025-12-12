@@ -151,16 +151,16 @@ const gifSource = computed(() => {
         <p class="b5 font-medium">{{ currentResult?.text_2 }}</p>
       </div>
       <div class="gap-0.5 pt-4 pb-5.5">
-        <p class="b5 text-blue-01 mb-1 font-bold">แชร์ผลลัพธ์ที่ได้</p>
+        <p class="b5 text-blue-01 mb-1 font-bold md:mb-2">แชร์ผลลัพธ์ที่ได้</p>
         <div class="flex gap-3 md:gap-4">
-          <button @click="share('facebook', score)">
-            <img src="/assets/images/facebook.png" alt="" />
+          <button class="cursor-pointer" @click="share('facebook', score)">
+            <img src="/assets/images/facebook-icon.svg" alt="" />
           </button>
-          <button @click="share('x', score)">
-            <img src="/assets/images/x.png" alt="" />
+          <button class="cursor-pointer" @click="share('x', score)">
+            <img src="/assets/images/x-icon.svg" alt="" />
           </button>
-          <button @click="share('line', score)">
-            <img src="/assets/images/line.png" alt="" />
+          <button class="cursor-pointer" @click="share('line', score)">
+            <img src="/assets/images/line-icon.svg" alt="" />
           </button>
         </div>
       </div>
