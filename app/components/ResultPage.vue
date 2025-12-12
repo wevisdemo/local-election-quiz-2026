@@ -4,6 +4,7 @@ import YellowCard from './YellowCard.vue'
 import AnswerSummaryCard from './AnswerSummaryCard.vue'
 import { fetchWeVisElectionPosts, type Post } from '~/wordpress/src'
 import ArticleCard from './ArticleCard.vue'
+const { share } = useSocialShare()
 
 interface Question {
   id: number
@@ -150,7 +151,18 @@ const gifSource = computed(() => {
         <p class="b5 font-medium">{{ currentResult?.text_2 }}</p>
       </div>
       <div class="gap-0.5 pt-4 pb-5.5">
-        <p class="b5 text-blue-01 font-bold">แชร์ผลลัพธ์ที่ได้</p>
+        <p class="b5 text-blue-01 mb-1 font-bold">แชร์ผลลัพธ์ที่ได้</p>
+        <div class="flex gap-3 md:gap-4">
+          <button @click="share('facebook', score)">
+            <img src="/assets/images/facebook.png" alt="" />
+          </button>
+          <button @click="share('x', score)">
+            <img src="/assets/images/x.png" alt="" />
+          </button>
+          <button @click="share('line', score)">
+            <img src="/assets/images/line.png" alt="" />
+          </button>
+        </div>
       </div>
       <div class="flex w-full flex-col items-center gap-2 md:flex-row md:justify-center">
         <button
