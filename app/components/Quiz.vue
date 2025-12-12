@@ -1,25 +1,7 @@
 <script setup lang="ts">
 import ChoiceBox from './ChoiceBox.vue'
 import QuizStepNavigation from './QuizStepNavigation.vue'
-import {
-  Column,
-  Object as SheetObject,
-  Spreadsheet,
-  asString,
-  type StaticDecode,
-} from 'sheethuahua'
 import { marked } from 'marked'
-
-const schema = SheetObject({
-  id: Column('id', asString()),
-  question: Column('question', asString()),
-  option_a: Column('option_a', asString()),
-  option_b: Column('option_b', asString()),
-  option_c: Column('option_c', asString()),
-  option_d: Column('option_d', asString()),
-  answer: Column('correct_option', asString()),
-  explanation: Column('explanation', asString()),
-})
 
 export type Choice = 'A' | 'B' | 'C' | 'D'
 type StepStatus = 'correct' | 'wrong' | 'current' | 'pending'
@@ -39,63 +21,22 @@ export interface QuizResultHistory {
   explanation: string
 }
 
+const props = defineProps<{
+  questions: Question[]
+}>()
+
 const emit = defineEmits<{
   (e: 'finish', score: number, history: QuizResultHistory[]): void
 }>()
 
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const newArr = [...array]
-  for (let i = newArr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[newArr[i], newArr[j]] = [newArr[j]!, newArr[i]!]
-  }
-  return newArr
-}
-
-const questions = ref<Question[]>([])
-const transformSheetData = (rawData: StaticDecode<typeof schema>[]) => {
-  return rawData.map((row, index) => {
-    return {
-      no: index + 1,
-      id: row.id,
-      question: row.question,
-      choices: [
-        { id: 'A', text: row.option_a },
-        { id: 'B', text: row.option_b },
-        { id: 'C', text: row.option_c },
-        { id: 'D', text: row.option_d },
-      ],
-      answer: row.answer,
-      explanation: row.explanation,
-    }
-  })
-}
-
 onMounted(async () => {
-  const output = await Spreadsheet('17UxdHGS0ML1pq52q3zmaR5vFfDIRD_eVCVJUqd6VX-E').get(
-    'quiz_data',
-    schema,
-  )
-  const data = transformSheetData(output)
-
-  questions.value = data.map((q) => {
-    return {
-      ...q,
-      answer: q.answer as Choice,
-      choices: ([4, 6, 7, 8, 10].includes(q.no) ? q.choices : shuffleArray(q.choices)) as {
-        id: Choice
-        text: string
-      }[],
-    }
-  })
-
   window.scrollTo(0, 0)
 })
 
 const currentStep = ref(0)
 const selectedAnswer = ref<Record<number, Choice>>({})
 
-const currentQuestion = computed(() => questions.value[currentStep.value])
+const currentQuestion = computed(() => props.questions[currentStep.value])
 
 const isCurrentQuestionAnswered = computed(() => {
   const question = currentQuestion.value
@@ -104,7 +45,7 @@ const isCurrentQuestionAnswered = computed(() => {
 })
 
 const stepsStatus = computed<StepStatus[]>(() => {
-  return questions.value.map((q, index) => {
+  return props.questions.map((q, index) => {
     const userAnswer = selectedAnswer.value[q.no]
     if (userAnswer) {
       return userAnswer === q.answer ? 'correct' : 'wrong'
@@ -118,7 +59,7 @@ const stepsStatus = computed<StepStatus[]>(() => {
 
 const calculateScore = () => {
   let score = 0
-  questions.value.forEach((q) => {
+  props.questions.forEach((q) => {
     if (selectedAnswer.value[q.no] === q.answer) {
       score++
     }
@@ -134,7 +75,7 @@ const currentGifSource = computed(() => {
 })
 
 const getQuizHistory = (): QuizResultHistory[] => {
-  return questions.value.map((q) => ({
+  return props.questions.map((q) => ({
     question: q,
     userAnswer: selectedAnswer.value[q.no] || null,
     explanation: q.explanation,
@@ -149,7 +90,7 @@ const handleSelectAnswer = (choiceId: Choice) => {
 }
 
 const handleNext = () => {
-  if (currentStep.value < questions.value.length - 1) {
+  if (currentStep.value < props.questions.length - 1) {
     currentStep.value++
     window.scrollTo(0, 0)
   } else {
