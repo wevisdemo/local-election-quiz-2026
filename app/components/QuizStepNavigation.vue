@@ -43,13 +43,13 @@ const getClass = (index: number) => {
 
   switch (status) {
     case 'correct':
-      return `${baseCursor} bg-blue-600 hover:bg-blue-700`
+      return `${baseCursor} bg-blue-05`
     case 'wrong':
-      return `${baseCursor} bg-red-500 hover:bg-red-600`
+      return `${baseCursor} bg-red-01`
     case 'current':
-      return `${baseCursor} bg-black hover:bg-gray-800`
+      return `${baseCursor} bg-black`
     default:
-      return `${baseCursor} bg-[#B3B3B3] hover:bg-gray-400`
+      return `${baseCursor} bg-[#B3B3B3]`
   }
 }
 </script>
@@ -76,8 +76,7 @@ const getClass = (index: number) => {
     </button>
 
     <div class="relative flex gap-2 md:mx-14 md:gap-10">
-      <div class="bg-blue-05 absolute top-1/2 right-1 left-1 h-0.5 -translate-y-1/2 px-1"></div>
-
+      <div class="bg-blue-05 absolute top-1/2 right-1 left-1 h-0.5 -translate-y-1/2 px-1" />
       <div
         v-for="n in totalSteps"
         :key="n"

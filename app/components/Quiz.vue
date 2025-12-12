@@ -223,7 +223,7 @@ const renderMarkdown = (text: string | undefined) => {
 
       <button
         @click="handleNext"
-        class="hover:bg-blue-05 bg-blue-06 mt-6 w-full max-w-[280px] cursor-pointer rounded-lg px-8 py-3 font-bold text-white transition-colors"
+        :class="`hover:bg-blue-05 ${currentStep === questions.length - 1 ? 'border-blue-05 border-[3px] bg-white' : 'bg-blue-06'} mt-6 w-full max-w-[280px] cursor-pointer rounded-lg px-8 py-3 font-bold text-[#1E1E1E] transition-colors`"
       >
         {{ currentStep === questions.length - 1 ? 'ส่งคำตอบ' : 'ไปต่อ' }}
       </button>

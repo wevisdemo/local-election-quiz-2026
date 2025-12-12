@@ -33,7 +33,7 @@ const boxClasses = computed(() => {
 })
 
 const iconBoxClasses = computed(() => {
-  if (!props.selectedAnswer) return 'border-grey bg-white group-hover:bg-yellow-02'
+  if (!props.selectedAnswer) return 'border-grey bg-white cursor-pointer group-hover:bg-yellow-02'
   if (props.id === props.correctAnswer) return 'bg-blue-06 border-blue-05'
   if (props.id === props.selectedAnswer) return 'bg-red-02 border-red-01'
   return 'bg-[#B3B3B3] border-[#A5A5A5] opacity-50'
@@ -56,12 +56,12 @@ const handleClick = () => {
       :class="boxClasses"
     >
       <div
-        class="flex h-5 w-5 flex-none items-center justify-center rounded-full text-[16px] font-bold md:h-8 md:w-8 md:text-[20px]"
+        class="font-sriracha flex h-5 w-5 flex-none items-center justify-center rounded-full text-[16px] font-bold md:h-8 md:w-8 md:text-[20px]"
         :class="
           props.selectedAnswer &&
           props.id !== props.correctAnswer &&
           props.id !== props.selectedAnswer
-            ? 'bg-gray-400 text-gray-200'
+            ? 'bg-gray-400 text-black'
             : 'bg-yellow-01 font-sriracha'
         "
       >
