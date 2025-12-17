@@ -28,7 +28,7 @@ const emit = defineEmits<{
       </div>
     </div>
 
-    <div class="w-full max-w-[500px] py-10">
+    <div class="w-full max-w-[480px] py-10 md:pt-10 md:pb-4">
       <img src="/gifs/landing.gif" alt="" />
     </div>
 
@@ -36,8 +36,8 @@ const emit = defineEmits<{
       11 มกรา เลือกตั้ง อบต. <br class="md:hidden" />
       คุณพร้อมแล้วแค่ไหน?
     </p>
-    <p class="b6 pb-2 font-medium">
-      มา Fit Check ✌️ ความพร้อมความเป๊ะ <br />
+    <p class="b6 pb-2 font-medium md:pb-3">
+      มา Fit Check ✌️ ความพร้อมความเป๊ะ <br class="md:hidden" />
       ก่อนออกจากบ้านไปเข้าคูหากันหน่อย!
     </p>
 
