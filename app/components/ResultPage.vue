@@ -202,7 +202,7 @@ const gifSource = computed(() => {
         rel="noopener noreferrer"
       >
         <div class="flex justify-center gap-1">
-          <p class="b5 text-grey-01 font-medium underline">คู่มือประชาชนเลือกตั้ง อบต.ไร</p>
+          <p class="b5 text-grey-01 font-medium underline">คู่มือประชาชนเลือกตั้ง อบต.</p>
           <img src="/images/external-link.svg" alt="External Link Icon" />
         </div>
       </a>
