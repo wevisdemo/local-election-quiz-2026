@@ -12,7 +12,7 @@ const props = defineProps<{
 <template>
   <a :href="data.link" target="_blank" rel="noopener noreferrer">
     <div
-      class="hover:bg-grey/10 w-40 max-w-full shrink-0 border border-black/10 bg-white md:w-[255px]"
+      class="hover:bg-grey/10 h-full w-40 max-w-full shrink-0 border border-black/10 bg-white md:w-[255px]"
     >
       <img
         :src="data.image"

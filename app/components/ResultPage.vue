@@ -142,6 +142,25 @@ const gifSource = computed(() => {
 
   return `/gifs/check_${formattedScore}.gif`
 })
+
+const copied = ref(false)
+const pressed = ref(false)
+
+const copyUrl = async () => {
+  pressed.value = true
+
+  try {
+    await navigator.clipboard.writeText('https://wevis.info/fitcheckquiz')
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 800)
+  } finally {
+    setTimeout(() => {
+      pressed.value = false
+    }, 800)
+  }
+}
 </script>
 
 <template>
@@ -183,6 +202,16 @@ const gifSource = computed(() => {
           </button>
         </div>
       </div>
+      <div class="pb-5.5">
+        <p class="b5 text-blue-01 mb-1 font-bold md:mb-2">แชร์หน้านี</p>
+        <div
+          @click="copyUrl"
+          :class="`border-grey flex w-[260px] cursor-pointer justify-between rounded-lg border px-4 py-2 transition md:w-[300px] ${pressed ? 'bg-[#B3B3B3]' : 'hover:bg-[#B3B3B3]'}`"
+        >
+          <p class="b4">{{ copied ? 'copied!' : 'wevis.info/fitcheckquiz' }}</p>
+          <img src="/assets/images/copy-link.svg" alt="Copy Link" />
+        </div>
+      </div>
       <div class="flex w-full flex-col items-center gap-2 md:flex-row md:justify-center">
         <button
           @click="$emit('restart')"
@@ -204,10 +233,8 @@ const gifSource = computed(() => {
     <YellowCard />
     <div class="py-2">
       <h6 class="mb-2 font-bold">อ่านบทความ</h6>
-      <div class="w-screen overflow-x-auto px-5">
-        <div
-          :class="`flex w-full gap-2 md:gap-4 ${articleList.length <= 2 ? 'justify-center' : articleList.length <= 5 ? 'md:justify-center' : ''}`"
-        >
+      <div class="no-scrollbar w-screen overflow-x-scroll px-5">
+        <div :class="`mx-auto flex w-max gap-2 md:gap-4`">
           <ArticleCard v-for="article in articleList" :data="article" :key="article.id" />
         </div>
       </div>
@@ -264,3 +291,13 @@ const gifSource = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>
