@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import type { Choice } from './Quiz.vue'
+import type { Choice, Question } from './Quiz.vue'
 import YellowCard from './YellowCard.vue'
 import AnswerSummaryCard from './AnswerSummaryCard.vue'
 import ArticleCard from './ArticleCard.vue'
 const { share } = useSocialShare()
 
-interface Question {
-  id: number
-  text: string
-  choices: { id: Choice; text: string }[]
-  answer: Choice
-  explanation?: string
-}
 interface QuizResultHistory {
   question: Question
   userAnswer: Choice | null
