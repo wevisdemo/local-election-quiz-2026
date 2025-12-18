@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const props = defineProps<{
-  data: any
+  data: {
+    id: number
+    title: string
+    link: string
+    image: string
+  }
 }>()
 </script>
 

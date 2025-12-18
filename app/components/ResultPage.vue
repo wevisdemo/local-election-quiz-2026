@@ -2,7 +2,6 @@
 import type { Choice } from './Quiz.vue'
 import YellowCard from './YellowCard.vue'
 import AnswerSummaryCard from './AnswerSummaryCard.vue'
-import { fetchWeVisElectionPosts, type Post } from '~/wordpress/src'
 import ArticleCard from './ArticleCard.vue'
 const { share } = useSocialShare()
 
@@ -28,11 +27,30 @@ const emit = defineEmits<{
   (e: 'restart'): void
 }>()
 
-const articleList = ref<Post[]>([])
+const articleList = ref([
+  {
+    id: 1,
+    title: 'อบต. เป็นใคร? ต้องกาอะไรบ้าง? ตอบทุกข้อสงสัยที่คุณควรรู้เพื่อเตรียมพร้อม #เลือกตั้งอบต',
+    link: 'https://wevis.info/local-election07/',
+    image: 'https://wevis.info/wp-content/uploads/2025/12/Local_Election_OG-1.jpg',
+  },
+  {
+    id: 2,
+    title:
+      '🔐 ปลดล็อกเลือกตั้งท้องถิ่น 🚩 รวมกฎหมายเลือกตั้ง อบต. ที่ ‘อาจจะยังน้า’ พร้อมทางแก้เพื่อเพิ่มสิทธิให้ประชาชนอย่างคุณ',
+    link: 'https://wevis.info/local-election08/',
+    image: 'https://wevis.info/wp-content/uploads/2025/12/Local_Election_OG.jpg',
+  },
+  {
+    id: 3,
+    title: 'ชิงลาออก = เปลืองงบ เปลืองโอกาส’ 💸 ชวน ‘รีสตาร์ต’ ระเบียบเลือกตั้งท้องถิ่น',
+    link: 'https://wevis.info/local-election09/',
+    image: 'https://wevis.info/wp-content/uploads/2025/12/cover.png',
+  },
+])
 
 onMounted(async () => {
   window.scrollTo(0, 0)
-  articleList.value = await fetchWeVisElectionPosts({ limit: 5 })
 })
 
 const showPopup = ref(false)
