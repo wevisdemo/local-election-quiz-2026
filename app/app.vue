@@ -18,6 +18,10 @@ useHead({
   ],
 })
 
+const config = useRuntimeConfig()
+const baseUrl = config.public.baseUrl.replace(/\/$/, '')
+const imageUrl = `${baseUrl}/og/main-og.png`
+
 useSeoMeta({
   title: title,
   ogTitle: title,
@@ -25,6 +29,8 @@ useSeoMeta({
   ogDescription: description,
   ogType: 'website',
   ogLocale: 'th_TH',
+  ogImage: imageUrl,
+  twitterImage: imageUrl,
   twitterCard: 'summary_large_image',
 })
 </script>
