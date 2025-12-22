@@ -1,6 +1,6 @@
 <script setup lang="ts">
-const title = ''
-const description = ''
+const title = 'Fit Check! เช็คความพร้อม ซ้อมความเป๊ะ ก่อนออกไปเลือกตั้ง อบต.'
+const description = 'มาทบทวนความเป๊ะก่อนออกจากบ้านไปเข้าคูหากันหน่อย!'
 
 const isLoading = ref(true)
 
