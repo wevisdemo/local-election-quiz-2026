@@ -8,7 +8,7 @@ const close = () => (isOpen.value = false)
 </script>
 
 <template>
-  <div class="fixed top-0 z-50 flex h-10 w-full items-center justify-between md:h-[62px] md:px-3">
+  <div class="fixed top-0 z-40 flex h-10 w-full items-center justify-between md:h-[62px] md:px-3">
     <div class="mx-2.5 my-[5px] w-[65px] md:w-[95px]">
       <img src="/assets/images/local-election-logo.png" alt="" />
     </div>

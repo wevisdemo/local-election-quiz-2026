@@ -272,7 +272,7 @@ const copyUrl = async () => {
 
     <div
       v-if="showPopup"
-      class="bg-blue-03 fixed inset-0 z-40 flex h-full flex-col overflow-y-auto"
+      class="bg-blue-03 fixed inset-0 z-50 flex h-full flex-col overflow-y-auto"
     >
       <div class="sticky top-0 flex justify-end p-3 md:px-6">
         <button
