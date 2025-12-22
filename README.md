@@ -1,75 +1,72 @@
-# Nuxt Minimal Starter
+# WEVIS - LOCAL ELECTION QUIZ 2026
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### Fit Check! เช็คความพร้อม ซ้อมความเป๊ะ ก่อนออกไปเลือกตั้ง อบต.
 
-## Setup
+มาทบทวนความเป๊ะก่อนออกจากบ้านไปเข้าคูหากันหน่อย!
 
-Make sure to install dependencies:
+## 💻 Tech Stack + CSS
+
+- [Vue 3 + Nuxt 4](https://nuxt.com/docs/getting-started/introduction)
+- [TailwindCSS](https://tailwindcss.com/)
+
+## 🚀 Deployments
+
+| Name       | URL                             | Hosting Provider |
+| ---------- | ------------------------------- | ---------------- |
+| Production | https://wevis.info/fitcheckquiz | Wevis            |
+
+## 🥣 Setup
+
+Make sure to install the dependencies:
 
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## 🌱 Environment Variables
 
-Start the development server on `http://localhost:3000`:
+This project uses environment variables for runtime configuration.
+
+Required variables:
+
+- `NUXT_PUBLIC_BASE_URL`  
+  Base URL used by the app (set per environment: staging / production)
+
+For local development, create a `.env` file:
+
+````env
+NUXT_PUBLIC_BASE_URL=https://example.pages.dev
+
+## 🎮 Development Server
+
+Start the development server on `http://localhost:3000/`:
 
 ```bash
 # npm
 npm run dev
+````
 
-# pnpm
-pnpm dev
+## 🧤 Production Build
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
+Generate a static version of your Nuxt 4 site:
 
 ```bash
 # npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run generate
 ```
 
-Locally preview production build:
+This will create the production-ready files in the `.output/public` directory.
+
+You can preview the generated site locally using:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npx serve .output/public
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 🧩 Team members
+
+- 💻 **Developer:** Key
+- 🎨 **Designer:** Shin
+- 📖 **Project Manager:** Pat
+- 👀 **Supervisor:** GG
