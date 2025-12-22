@@ -1,3 +1,6 @@
+const SUBPATH = 'fitcheckquiz'
+const path = require('path')
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -15,6 +18,7 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    baseURL: `/${SUBPATH}/`,
     head: {
       script: [
         {
@@ -23,9 +27,20 @@ export default defineNuxtConfig({
           src: 'https://analytics.punchup.world/js/script.js',
         },
       ],
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: `/${SUBPATH}/favicon.ico`,
+        },
+      ],
     },
   },
+
   nitro: {
+    output: {
+      publicDir: path.join(__dirname, `.output/${SUBPATH}`),
+    },
     hooks: {
       'prerender:routes'(routes) {
         for (let i = 0; i <= 10; i++) {
