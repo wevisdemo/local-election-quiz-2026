@@ -17,6 +17,17 @@ export default defineNuxtConfig({
       baseUrl: BASE_URL,
     },
   },
+  app: {
+    head: {
+      script: [
+        {
+          defer: true,
+          'data-domain': 'wevis.info/fitcheckquiz',
+          src: 'https://analytics.punchup.world/js/script.js',
+        },
+      ],
+    },
+  },
   nitro: {
     hooks: {
       'prerender:routes'(routes) {
