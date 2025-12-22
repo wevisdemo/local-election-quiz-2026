@@ -235,12 +235,26 @@ const copyUrl = async () => {
     <div class="mb-8 py-2">
       <h6 class="mb-2 font-bold">อ้างอิง</h6>
       <a
-        href="https://www.wangngiutai.go.th/contents/post/000000485-e0cb496af4f762ccb98f5376bdac2280.pdf"
+        href="https://gcc.go.th/2025/12/01/%E0%B9%80%E0%B8%A5%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%AD%E0%B8%9A%E0%B8%9511%E0%B8%A1%E0%B8%8469/"
         target="_blank"
         rel="noopener noreferrer"
       >
         <div class="flex justify-center gap-1">
-          <p class="b5 text-grey-01 font-medium underline">คู่มือประชาชนเลือกตั้ง อบต.</p>
+          <p class="b5 text-grey-01 font-medium underline">
+            ความรู้ทั่วไปเกี่ยวกับ อบต. และการเลือกตั้งอบต.
+          </p>
+          <img src="/images/external-link.svg" alt="External Link Icon" />
+        </div>
+      </a>
+      <a
+        href="https://www.senate.go.th/assets/portals/28/fileups/146/files/%E0%B8%AA%E0%B8%A0%E0%B8%B2%E0%B8%95%E0%B8%B3%E0%B8%9A%E0%B8%A5.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="flex justify-center gap-1">
+          <p class="b5 text-grey-01 font-medium underline">
+            พ.ร.บ. สภาตำบลและองค์การบริหารส่วนตำบล พ.ศ. 2537
+          </p>
           <img src="/images/external-link.svg" alt="External Link Icon" />
         </div>
       </a>
@@ -250,7 +264,7 @@ const copyUrl = async () => {
         rel="noopener noreferrer"
       >
         <div class="flex justify-center gap-1">
-          <p class="b5 text-grey-01 font-medium underline">อบต. กับ เทศบาล ต่างกันอย่างไร</p>
+          <p class="b5 text-grey-01 font-medium underline">ความแตกต่างระหว่าง อบต. และเทศบาลตำบล</p>
           <img src="/images/external-link.svg" alt="External Link Icon" />
         </div>
       </a>
