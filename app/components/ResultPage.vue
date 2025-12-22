@@ -196,7 +196,7 @@ const copyUrl = async () => {
         </div>
       </div>
       <div class="pb-5.5">
-        <p class="b5 text-blue-01 mb-1 font-bold md:mb-2">แชร์หน้านี</p>
+        <p class="b5 text-blue-01 mb-1 font-bold md:mb-2">แชร์ Quiz นี้</p>
         <div
           @click="copyUrl"
           :class="`border-grey flex w-[260px] cursor-pointer justify-between rounded-lg border px-4 py-2 transition md:w-[300px] ${pressed ? 'bg-[#B3B3B3]' : 'hover:bg-[#B3B3B3]'}`"
