@@ -35,8 +35,9 @@ Required variables:
 
 For local development, create a `.env` file:
 
-````env
+```env
 NUXT_PUBLIC_BASE_URL=https://example.pages.dev
+```
 
 ## 🎮 Development Server
 
@@ -45,7 +46,7 @@ Start the development server on `http://localhost:3000/`:
 ```bash
 # npm
 npm run dev
-````
+```
 
 ## 🧤 Production Build
 
