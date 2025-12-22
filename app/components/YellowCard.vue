@@ -1,8 +1,11 @@
 <script setup lang="ts">
+const config = useRuntimeConfig()
+const baseURL = config.public.baseUrl.replace(/\/$/, '')
+
 const fileUrls = [
-  '/images/local-election-05.jpg',
-  '/images/local-election-06.jpg',
-  '/images/local-election-07.jpg',
+  `${baseURL}/images/local-election-05.jpg`,
+  `${baseURL}/images/local-election-06.jpg`,
+  `${baseURL}/images/local-election-07.jpg`,
 ]
 
 const downloadImages = () => {

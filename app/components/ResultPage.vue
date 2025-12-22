@@ -130,10 +130,13 @@ const currentResult = computed(() => {
   return found ?? allScoreDisplayData[0]
 })
 
+const config = useRuntimeConfig()
+const baseURL = config.public.baseUrl
+
 const gifSource = computed(() => {
   const formattedScore = props.score.toString().padStart(2, '0')
 
-  return `/gifs/check_${formattedScore}.gif`
+  return `${baseURL}/gifs/check_${formattedScore}.gif`
 })
 
 const copied = ref(false)

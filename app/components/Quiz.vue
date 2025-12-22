@@ -67,11 +67,14 @@ const calculateScore = () => {
   return score
 }
 
+const config = useRuntimeConfig()
+const baseURL = config.public.baseUrl
+
 const currentGifSource = computed(() => {
   const score = calculateScore()
 
   const formattedScore = score.toString().padStart(2, '0')
-  return `/gifs/check_${formattedScore}.gif`
+  return `${baseURL}/gifs/check_${formattedScore}.gif`
 })
 
 const getQuizHistory = (): QuizResultHistory[] => {

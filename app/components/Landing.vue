@@ -4,6 +4,9 @@ import Button from './Button.vue'
 const emit = defineEmits<{
   (e: 'start'): void
 }>()
+
+const config = useRuntimeConfig()
+const baseURL = config.public.baseUrl
 </script>
 
 <template>
@@ -29,7 +32,7 @@ const emit = defineEmits<{
     </div>
 
     <div class="w-full max-w-[480px] py-10 md:pt-10 md:pb-4">
-      <img src="/gifs/landing.gif" alt="" />
+      <img :src="`${baseURL}/gifs/landing.gif`" alt="" />
     </div>
 
     <p class="b5 pb-1.5 font-bold">
