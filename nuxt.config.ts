@@ -1,6 +1,3 @@
-const BASE_URL = 'https://local-election-quiz-2026.pages.dev' // staging
-// const BASE_URL = 'https://wevis.info/fitcheckquiz' // production
-
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -14,7 +11,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseUrl: BASE_URL,
+      baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
     },
   },
   app: {
