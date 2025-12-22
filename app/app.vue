@@ -37,6 +37,7 @@ useSeoMeta({
 
 <template>
   <div>
+    <Navbar />
     <Transition name="fade">
       <div
         v-if="isLoading"

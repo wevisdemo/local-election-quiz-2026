@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Landing from '~/components/Landing.vue'
-import Logo from '~/components/Logo.vue'
 import Quiz, { type Choice, type Question, type QuizResultHistory } from '~/components/Quiz.vue'
 import ResultPage from '~/components/ResultPage.vue'
 import WvFooter from '@wevisdemo/ui/vue/footer'
@@ -93,7 +92,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <Logo />
     <Landing v-if="currentView === 'landing'" @start="startQuiz" />
     <Quiz v-if="currentView === 'quiz'" :questions="questions" @finish="finishQuiz" />
 
