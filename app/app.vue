@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Navbar from './components/Navbar.vue'
+
 const title = 'Fit Check! เช็คความพร้อม ซ้อมความเป๊ะ ก่อนออกไปเลือกตั้ง อบต.'
 const description = 'มาทบทวนความเป๊ะก่อนออกจากบ้านไปเข้าคูหากันหน่อย!'
 

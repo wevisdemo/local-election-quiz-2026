@@ -26,6 +26,11 @@ const currentView = ref<'landing' | 'quiz' | 'result'>('landing')
 const finalScore = ref(0)
 const quizHistory = ref<QuizResultHistory[]>([])
 
+const goToLanding = () => {
+  currentView.value = 'landing'
+  finalScore.value = 0
+}
+
 const startQuiz = () => {
   if (!isDataReady.value) return
   currentView.value = 'quiz'
@@ -67,6 +72,20 @@ const transformSheetData = (rawData: StaticDecode<typeof schema>[]) => {
     }
   })
 }
+
+const route = useRoute()
+const router = useRouter()
+
+watch(
+  () => route.query.restart,
+  (v) => {
+    if (v === '1') {
+      goToLanding()
+      router.replace({ query: {} })
+    }
+  },
+  { immediate: true },
+)
 
 onMounted(async () => {
   const output = await Spreadsheet('17UxdHGS0ML1pq52q3zmaR5vFfDIRD_eVCVJUqd6VX-E').get(

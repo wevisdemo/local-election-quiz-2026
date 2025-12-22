@@ -14,7 +14,11 @@ const close = () => (isOpen.value = false)
     </div>
     <!-- Desktop -->
     <div class="hidden md:flex">
-      <NuxtLink to="/" class="b7 px-2.5 underline-offset-4" :class="{ underline: isActive('/') }">
+      <NuxtLink
+        to="/?restart=1"
+        class="b7 px-2.5 underline-offset-4"
+        :class="{ underline: isActive('/') }"
+      >
         Home
       </NuxtLink>
 
@@ -40,7 +44,7 @@ const close = () => (isOpen.value = false)
       <!-- Dropdown -->
       <div v-if="isOpen" class="absolute right-0 w-[200px] bg-black text-white">
         <NuxtLink
-          to="/"
+          to="/?restart=1"
           class="b7 flex h-[60px] items-center justify-center"
           :class="{ underline: isActive('/') }"
           @click="close"
